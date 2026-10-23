@@ -479,3 +479,132 @@
     width: auto;
   }
 }
+
+/* ================= PERFIL ================= */
+
+.profile-card {
+  width: min(560px, 100%);
+  margin-inline: auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+  padding: 28px;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1D4ED8, #22D3EE);
+  color: var(--color-white);
+  font-size: 1.7rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 24px rgba(34, 211, 238, 0.35);
+}
+
+.profile-name {
+  font-size: 1.4rem;
+  margin-top: 4px;
+}
+
+.profile-title {
+  font-size: 1.3rem;
+}
+
+.profile-nickname {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.role-badge {
+  display: inline-flex;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.role-comprador {
+  background: rgba(34, 211, 238, 0.15);
+  color: #0E7490;
+}
+
+.role-vendedor {
+  background: rgba(139, 92, 246, 0.15);
+  color: #6D28D9;
+}
+
+.role-administrador {
+  background: rgba(29, 78, 216, 0.15);
+  color: #1D4ED8;
+}
+
+.profile-data {
+  width: 100%;
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.profile-data-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--color-border);
+  font-size: 0.95rem;
+}
+
+.profile-data-row:last-child {
+  border-bottom: none;
+}
+
+.profile-data-row span {
+  color: var(--color-text-muted);
+}
+
+.profile-data-row strong {
+  text-align: right;
+}
+
+.profile-actions {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.profile-actions .btn {
+  width: 100%;
+}
+
+.notice-card {
+  gap: 12px;
+}
+
+.notice-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(34, 211, 238, 0.15);
+  color: #0E7490;
+  font-size: 1.6rem;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 560px) {
+  .profile-actions {
+    grid-template-columns: 1fr;
+  }
+}

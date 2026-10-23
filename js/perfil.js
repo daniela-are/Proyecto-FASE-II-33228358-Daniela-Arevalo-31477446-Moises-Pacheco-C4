@@ -17,20 +17,31 @@ function getProfileUser(session) {
 }
 
 function profileCardHtml(session, user, esVendedor) {
-  const acciones = esVendedor
-    ? `
+    let acciones;
+
+  if (esVendedor === "admin") {
+    acciones = `
+      <div class="profile-actions">
+        <button id="profile-edit-button" class="btn btn-secondary" type="button">Editar datos</button>
+        <a class="btn btn-primary" href="administrador.html">Ir al panel de administración</a>
+      </div>
+    `;
+  } else if (esVendedor) {
+    acciones = `
       <div class="profile-actions">
         <button id="profile-edit-button" class="btn btn-secondary" type="button">Editar datos</button>
         <a class="btn btn-primary" href="vendedor.html">Agregar producto</a>
         <a class="btn btn-secondary" href="vendedor.html#historial">Ver mis ventas</a>
       </div>
-    `
-    : `
+    `;
+  } else {
+    acciones = `
       <div class="profile-actions">
         <button id="profile-edit-button" class="btn btn-secondary" type="button">Editar datos</button>
         <a class="btn btn-primary" href="../index.html">Empezar a comprar</a>
       </div>
     `;
+  }
 
   return `
     <div class="profile-card">
@@ -182,6 +193,15 @@ function renderProfile() {
   if (!session) return;
 
   const user = getProfileUser(session);
+
+   if (session.rol === "administrador") {
+    container.innerHTML = user
+      ? (profileEditMode ? profileEditFormHtml(user) : profileCardHtml(session, user, "admin"))
+      : noticeCardHtml(session);
+    hideMisCompras();
+    if (user) bindProfileEvents(session);
+    return;
+  }
 
   if (session.rol === "vendedor") {
     container.innerHTML = user

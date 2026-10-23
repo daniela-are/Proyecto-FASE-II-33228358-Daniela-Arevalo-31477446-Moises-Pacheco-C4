@@ -826,3 +826,131 @@
   transform: translateY(-1px);
   box-shadow: 0 6px 16px rgba(34, 211, 238, 0.35);
 }
+
+/* ================= ADMINISTRADOR ================= */
+
+.admin-avatar {
+  background: linear-gradient(135deg, #1D4ED8, #312E81);
+  box-shadow: 0 10px 24px rgba(29, 78, 216, 0.3);
+}
+
+.admin-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 12px;
+}
+
+.admin-metrica {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 16px;
+  display: grid;
+  gap: 4px;
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-metrica span {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.admin-metrica strong {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+.admin-metrica small { color: var(--color-text-muted); }
+
+.admin-filtro {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.admin-filtro select {
+  padding: 9px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+}
+
+.admin-lista { display: grid; gap: 12px; }
+
+.admin-usuario-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.admin-usuario-datos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-usuario-datos strong { font-size: 1rem; }
+
+.admin-usuario-datos > span:not(.role-badge):not(.origen-badge) {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.origen-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.origen-predefinida { background: rgba(29, 78, 216, 0.12); color: #1D4ED8; }
+.origen-registrada { background: rgba(5, 150, 105, 0.12); color: #047857; }
+
+.admin-protegido {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px dashed var(--color-border);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+.admin-producto-item {
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-producto-item .mis-productos-imagen img {
+  width: 70px;
+  height: 70px;
+}
+
+.admin-producto-datos { display: grid; gap: 3px; }
+.admin-producto-datos strong { font-size: 0.98rem; }
+.admin-producto-datos span { color: var(--color-text-muted); font-size: 0.88rem; }
+
+@media (max-width: 640px) {
+  .admin-producto-item { grid-template-columns: 60px 1fr; }
+  .admin-producto-acciones { grid-column: 1 / -1; }
+  .admin-usuario-item { flex-direction: column; align-items: flex-start; }
+}

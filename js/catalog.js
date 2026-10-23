@@ -5,13 +5,8 @@ function getCategoryById(id) {
 }
 
 function getCategoryName(id) {
-  const category = getCategoryById(id);
-
-  if (!category) {
-    return "General";
-  }
-
-  return category.nombre;
+  const category = getCategoriasActivas().find((c) => c.id === id);
+  return category ? category.nombre : "General";
 }
 
 function getCategoryCount(id) {
@@ -23,39 +18,26 @@ function getFeaturedProducts() {
 }
 
 function getProductsByView(view) {
-  if (view === "destacados") {
-    return getFeaturedProducts();
-  }
-
-  if (view === "todos") {
-    return [...PRODUCTOS];
-  }
-
+  if (view === "destacados") return getFeaturedProducts();
+  if (view === "todos") return [...PRODUCTOS];
   return PRODUCTOS.filter((product) => product.categoria === view);
 }
 
 function updateCatalogTitle(view, count) {
   const title = document.getElementById("catalog-title");
   const subtitle = document.getElementById("catalog-subtitle");
-
-  if (!title || !subtitle) {
-    return;
-  }
+  if (!title || !subtitle) return;
 
   if (view === "destacados") {
     title.textContent = "Productos destacados";
     subtitle.textContent = `Mostrando ${count} productos principales de la tienda.`;
-    return;
-  }
-
-  if (view === "todos") {
+  } else if (view === "todos") {
     title.textContent = "Todos los productos";
     subtitle.textContent = `Mostrando ${count} productos disponibles en la tienda.`;
-    return;
+  } else {
+    title.textContent = getCategoryName(view);
+    subtitle.textContent = `Mostrando ${count} productos de esta categoría.`;
   }
-
-  title.textContent = getCategoryName(view);
-  subtitle.textContent = `Mostrando ${count} productos de esta categoría.`;
 }
 
 function createProductCard(product) {
@@ -65,39 +47,17 @@ function createProductCard(product) {
 
   return `
     <article class="product-card">
-      <div class="product-image">
-        ${imageHtml}
-      </div>
-
+      <div class="product-image">${imageHtml}</div>
       <div class="product-info">
-        <span class="product-category">
-          ${escapeHtml(getCategoryName(product.categoria))}
-        </span>
-
+        <span class="product-category">${escapeHtml(getCategoryName(product.categoria))}</span>
         <h3>${escapeHtml(product.nombre)}</h3>
-
         <p>${escapeHtml(product.descripcion)}</p>
-
-        <strong class="product-price">
-          ${formatPrice(product.precio)}
-        </strong>
-
+        <strong class="product-price">${formatPrice(product.precio)}</strong>
         <div class="product-actions">
-          <button
-            class="btn btn-secondary"
-            type="button"
-            data-action="add-to-cart"
-            data-id="${product.id}"
-          >
+          <button class="btn btn-secondary" type="button" data-action="add-to-cart" data-id="${product.id}">
             Añadir al carrito
           </button>
-
-          <button
-            class="btn btn-primary"
-            type="button"
-            data-action="buy-now"
-            data-id="${product.id}"
-          >
+          <button class="btn btn-primary" type="button" data-action="buy-now" data-id="${product.id}">
             Comprar de inmediato
           </button>
         </div>
@@ -108,33 +68,22 @@ function createProductCard(product) {
 
 function renderCategoryButtons() {
   const container = document.getElementById("category-list");
-
-  if (!container) {
-    return;
-  }
+  if (!container) return;
 
   const featuredCount = getFeaturedProducts().length;
-
   const featuredButton = `
-    <button
-      class="category-card ${currentCatalogView === "destacados" ? "active" : ""}"
-      type="button"
-      data-view="destacados"
-    >
+    <button class="category-card ${currentCatalogView === "destacados" ? "active" : ""}"
+            type="button" data-view="destacados">
       <span>Destacados</span>
       <small>${featuredCount} productos</small>
     </button>
   `;
 
-  const categoryButtons = CATEGORIAS.map((category) => {
+  const categoryButtons = getCategoriasActivas().map((category) => {
     const count = getCategoryCount(category.id);
-
     return `
-      <button
-        class="category-card ${currentCatalogView === category.id ? "active" : ""}"
-        type="button"
-        data-view="${category.id}"
-      >
+      <button class="category-card ${currentCatalogView === category.id ? "active" : ""}"
+              type="button" data-view="${category.id}">
         <span>${escapeHtml(category.nombre)}</span>
         <small>${count} productos</small>
       </button>
@@ -146,45 +95,31 @@ function renderCategoryButtons() {
 
 function renderCatalog(view = currentCatalogView) {
   currentCatalogView = view;
-
   const products = getProductsByView(view);
   const grid = document.getElementById("product-grid");
-
-  if (!grid) {
-    return;
-  }
+  if (!grid) return;
 
   grid.innerHTML = products.map(createProductCard).join("");
-
   updateCatalogTitle(view, products.length);
   renderCategoryButtons();
 }
 
 function handleProductAction(event) {
   const button = event.target.closest("[data-action]");
+  if (!button) return;
 
-  if (!button) {
-    return;
-  }
-
-  const productId = Number(button.dataset.id);
+  const productId = button.dataset.id;
   const action = button.dataset.action;
-
-  const product = PRODUCTOS.find((item) => item.id === productId);
-
-  if (!product) {
-    return;
-  }
+  
+  const product = PRODUCTOS.find((item) => String(item.id) === String(productId));
+  if (!product) return;
 
   const session = getCurrentSession();
-
   if (!session) {
     showToast("Debes iniciar sesión o registrarte para continuar.", "warning");
-
     if (typeof openAuthModal === "function") {
       openAuthModal("login", "Inicia sesión o regístrate para comprar.");
     }
-
     return;
   }
 
@@ -196,16 +131,11 @@ function handleProductAction(event) {
 
   if (action === "buy-now") {
     const result = addToCart(product, 1);
-
     if (!result.success) {
       showToast(result.message, "warning");
       return;
-    } 
-
-    showToast(result.message, "success");
-
-    if (typeof openCheckout === "function") {
-      openCheckout();
     }
+    showToast(result.message, "success");
+    if (typeof openCheckout === "function") openCheckout();
   }
 }

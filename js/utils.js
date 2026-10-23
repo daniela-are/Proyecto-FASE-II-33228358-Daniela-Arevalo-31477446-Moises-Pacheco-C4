@@ -6,7 +6,7 @@ function formatPrice(value) {
   }
 
   return `$${number.toFixed(2)}`;
-}
+} 
 
 function escapeHtml(value) {
   const text = String(value === undefined || value === null ? "" : value);

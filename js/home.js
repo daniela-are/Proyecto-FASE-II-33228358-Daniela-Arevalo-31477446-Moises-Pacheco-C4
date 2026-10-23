@@ -21,43 +21,37 @@ function updateAuthUI() {
         openAuthModal("login", "Inicia sesión o regístrate para comprar.");
       });
     }
+  } else {
+    authArea.innerHTML = `
+      <span class="user-greeting">
+        Hola, ${escapeHtml(session.nickname)} (${escapeHtml(session.rol)})
+      </span>
 
-    return;
+      <button id="logout-button" class="btn btn-outline" type="button">
+        Salir
+      </button>
+    `;
+
+    const logoutButton = document.getElementById("logout-button");
+
+    if (logoutButton) {
+      logoutButton.addEventListener("click", handleLogout);
+    }
   }
 
-  authArea.innerHTML = `
-    <span class="user-greeting">
-      Hola, ${escapeHtml(session.nickname)} (${escapeHtml(session.rol)})
-    </span>
-
-    <button id="logout-button" class="btn btn-outline" type="button">
-      Salir
-    </button>
-  `;
-
-  const logoutButton = document.getElementById("logout-button");
-
-  if (logoutButton) {
-    logoutButton.addEventListener("click", handleLogout);
+  if (typeof updateCartUI === "function") {
+    updateCartUI();
   }
 }
 
 function handleLogout() {
+  if (typeof closeCartDropdown === "function") {
+    closeCartDropdown();
+  }
+
   clearSession();
   updateAuthUI();
   showToast("Sesión cerrada correctamente.", "info");
-}
-
-function handleCartClick() {
-  const session = getCurrentSession();
-
-  if (!session) {
-    showToast("Debes iniciar sesión para acceder al carrito.", "warning");
-    openAuthModal("login", "Inicia sesión o regístrate para comprar.");
-    return;
-  }
-
-  showToast("El carrito se implementará en el siguiente bloque.", "info");
 }
 
 function bindHomeEvents() {
@@ -86,18 +80,14 @@ function bindHomeEvents() {
       renderCatalog("todos");
     });
   }
-
-  const cartButton = document.getElementById("cart-button");
-
-  if (cartButton) {
-    cartButton.addEventListener("click", handleCartClick);
-  }
 }
 
 function initHome() {
   renderCatalog("destacados");
   updateAuthUI();
   bindAuthModalEvents();
+  bindCartEvents();
+  bindCheckoutEvents();
   bindHomeEvents();
 }
 

@@ -185,17 +185,23 @@ function handleProductAction(event) {
   }
 
   if (action === "add-to-cart") {
-    showToast(
-      `${product.nombre} añadido al carrito. El carrito se completará en el siguiente bloque.`,
-      "success"
-    );
+    const result = addToCart(product, 1);
+    showToast(result.message, result.success ? "success" : "warning");
     return;
   }
 
   if (action === "buy-now") {
-    showToast(
-      `Compra inmediata de ${product.nombre}. El pago se completará en el siguiente bloque.`,
-      "success"
-    );
+    const result = addToCart(product, 1);
+
+    if (!result.success) {
+      showToast(result.message, "warning");
+      return;
+    } 
+
+    showToast(result.message, "success");
+
+    if (typeof openCheckout === "function") {
+      openCheckout();
+    }
   }
 }

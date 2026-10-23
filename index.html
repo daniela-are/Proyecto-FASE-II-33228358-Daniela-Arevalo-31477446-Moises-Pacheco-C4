@@ -20,9 +20,47 @@
       </nav>
 
       <div class="header-actions">
-        <button id="cart-button" class="header-cart" type="button">
-          Carrito (0)
-        </button>
+                <div class="cart-wrapper">
+          <button
+            id="cart-button"
+            class="header-cart"
+            type="button"
+            aria-expanded="false"
+          >
+            Carrito (<span id="cart-count">0</span>)
+          </button>
+
+          <div id="cart-dropdown" class="cart-dropdown">
+            <div class="cart-dropdown-head">
+              <h3>Tu carrito</h3>
+              <button
+                id="cart-close"
+                class="cart-close"
+                type="button"
+                aria-label="Cerrar carrito"
+              >
+                ×
+              </button>
+            </div>
+
+            <div id="cart-items" class="cart-items"></div>
+
+            <div id="cart-footer" class="cart-footer hidden">
+              <p class="cart-total">
+                Total: <strong id="cart-total">$0.00</strong>
+              </p>
+
+              <div class="cart-footer-actions">
+                <button id="cart-clear" class="btn btn-outline" type="button">
+                  Vaciar carrito
+                </button>
+                <button id="cart-checkout" class="btn btn-primary" type="button">
+                  Finalizar compra
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div id="auth-area"></div>
       </div>
@@ -219,12 +257,91 @@
     </div>
   </div>
 
+    <div
+    id="checkout-modal"
+    class="modal-overlay hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="checkout-title"
+  >
+    <div class="modal">
+      <button
+        id="close-checkout"
+        class="modal-close"
+        type="button"
+        aria-label="Cerrar"
+      >
+        ×
+      </button>
+
+      <h2 id="checkout-title">Finalizar compra</h2>
+      <p id="checkout-message" class="modal-message">
+        Confirma tu método de pago para procesar la orden.
+      </p>
+
+      <form id="checkout-form" class="auth-form">
+        <div class="form-group">
+          <label for="pay-bank">Banco</label>
+          <input id="pay-bank" type="text" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pay-holder">Nombre del titular</label>
+          <input id="pay-holder" type="text" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pay-card">Número de tarjeta</label>
+          <input id="pay-card" type="text" inputmode="numeric" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pay-expiry">Vencimiento (MM/AA)</label>
+            <input
+              id="pay-expiry"
+              type="text"
+              placeholder="MM/AA"
+              maxlength="5"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="pay-cvv">CVV</label>
+            <input
+              id="pay-cvv"
+              type="password"
+              inputmode="numeric"
+              maxlength="4"
+              required
+            >
+          </div>
+        </div>
+
+        <p class="checkout-summary-line">
+          Total a pagar: <strong id="checkout-total">$0.00</strong>
+        </p>
+
+        <p id="checkout-error" class="form-error" role="alert"></p>
+
+        <button id="checkout-submit" class="btn btn-primary btn-block" type="submit">
+          Pagar
+        </button>
+      </form>
+
+      <div id="checkout-receipt" class="hidden"></div>
+    </div>
+  </div>
+
   <div id="toast-container" class="toast-container"></div>
 
   <script src="./js/data/productos.js"></script>
   <script src="./js/data/usuarios.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/auth.js"></script>
+  <script src="./js/cart.js"></script>
+  <script src="./js/checkout.js"></script>
   <script src="./js/catalog.js"></script>
   <script src="./js/modal-auth.js"></script>
   <script src="./js/home.js"></script>

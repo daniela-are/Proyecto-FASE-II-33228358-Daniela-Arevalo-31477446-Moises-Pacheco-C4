@@ -20,7 +20,7 @@
       </nav>
 
       <div class="header-actions">
-                <div class="cart-wrapper">
+        <div class="cart-wrapper">
           <button
             id="cart-button"
             class="header-cart"
@@ -73,9 +73,7 @@
       <div class="container hero-content">
         <p class="hero-tag">Tienda de limpieza</p>
         <h1>Productos de limpieza para tu hogar, oficina y negocio</h1>
-        <p>
-          Encuentra desinfectantes, limpiadores y accesorios en un solo lugar.
-        </p>
+        <p>Encuentra desinfectantes, limpiadores y accesorios en un solo lugar.</p>
         <a class="btn btn-primary" href="#catalogo">Ver productos</a>
       </div>
     </section>
@@ -88,7 +86,6 @@
             <p>Explora los productos por categoría.</p>
           </div>
         </div>
-
         <div id="category-list" class="category-grid"></div>
       </div>
     </section>
@@ -102,12 +99,10 @@
               Mostrando los productos principales de la tienda.
             </p>
           </div>
-
           <button id="view-all-button" class="btn btn-secondary" type="button">
             Ver todos
           </button>
         </div>
-
         <div id="product-grid" class="product-grid"></div>
       </div>
     </section>
@@ -122,51 +117,26 @@
     aria-labelledby="auth-modal-title"
   >
     <div class="modal">
-      <button
-        id="close-auth-modal"
-        class="modal-close"
-        type="button"
-        aria-label="Cerrar"
-      >
-        ×
-      </button>
-
+      <button id="close-auth-modal" class="modal-close" type="button" aria-label="Cerrar">×</button>
       <h2 id="auth-modal-title">Iniciar sesión</h2>
       <p id="auth-modal-message" class="modal-message">
         Inicia sesión o regístrate para comprar.
       </p>
 
       <div class="auth-tabs">
-        <button id="tab-login" class="tab-btn active" type="button">
-          Iniciar sesión
-        </button>
-
-        <button id="tab-register" class="tab-btn" type="button">
-          Registrarse
-        </button>
+        <button id="tab-login" class="tab-btn active" type="button">Iniciar sesión</button>
+        <button id="tab-register" class="tab-btn" type="button">Registrarse</button>
       </div>
 
       <form id="login-form" class="auth-form">
         <div class="form-group">
           <label for="login-nickname">Nickname</label>
-          <input
-            id="login-nickname"
-            type="text"
-            autocomplete="username"
-            required
-          >
+          <input id="login-nickname" type="text" autocomplete="username" required>
         </div>
-
         <div class="form-group">
           <label for="login-password">Contraseña</label>
-          <input
-            id="login-password"
-            type="password"
-            autocomplete="current-password"
-            required
-          >
+          <input id="login-password" type="password" autocomplete="current-password" required>
         </div>
-
         <div class="form-group">
           <label for="login-role">Rol</label>
           <select id="login-role" required>
@@ -175,12 +145,8 @@
             <option value="administrador">Administrador</option>
           </select>
         </div>
-
         <p id="login-error" class="form-error" role="alert"></p>
-
-        <button class="btn btn-primary btn-block" type="submit">
-          Iniciar sesión
-        </button>
+        <button class="btn btn-primary btn-block" type="submit">Iniciar sesión</button>
       </form>
 
       <form id="register-form" class="auth-form hidden">
@@ -189,35 +155,29 @@
             <label for="register-nombre">Nombre</label>
             <input id="register-nombre" type="text" required>
           </div>
-
           <div class="form-group">
             <label for="register-apellido">Apellido</label>
             <input id="register-apellido" type="text" required>
           </div>
         </div>
-
         <div class="form-group">
           <label for="register-direccion">Dirección</label>
           <input id="register-direccion" type="text" required>
         </div>
-
         <div class="form-group">
           <label for="register-nickname">Nickname</label>
           <input id="register-nickname" type="text" required>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="register-password">Contraseña</label>
             <input id="register-password" type="password" required>
           </div>
-
           <div class="form-group">
             <label for="register-confirm-password">Confirmar contraseña</label>
             <input id="register-confirm-password" type="password" required>
           </div>
         </div>
-
         <div class="form-group">
           <label for="register-role">Rol</label>
           <select id="register-role" required>
@@ -225,39 +185,23 @@
             <option value="vendedor">Vendedor</option>
           </select>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="register-bank">Banco</label>
-            <input
-              id="register-bank"
-              type="text"
-              placeholder="Banco Nacional"
-              required
-            >
+            <input id="register-bank" type="text" placeholder="Banco Nacional" required>
           </div>
-
           <div class="form-group">
             <label for="register-card">Número de tarjeta</label>
-            <input
-              id="register-card"
-              type="text"
-              placeholder="0000-0000-0000-0000"
-              required
-            >
+            <input id="register-card" type="text" placeholder="0000-0000-0000-0000" required>
           </div>
         </div>
-
         <p id="register-error" class="form-error" role="alert"></p>
-
-        <button class="btn btn-primary btn-block" type="submit">
-          Crear cuenta
-        </button>
+        <button class="btn btn-primary btn-block" type="submit">Crear cuenta</button>
       </form>
     </div>
   </div>
 
-    <div
+  <div
     id="checkout-modal"
     class="modal-overlay hidden"
     role="dialog"
@@ -265,71 +209,40 @@
     aria-labelledby="checkout-title"
   >
     <div class="modal">
-      <button
-        id="close-checkout"
-        class="modal-close"
-        type="button"
-        aria-label="Cerrar"
-      >
-        ×
-      </button>
-
+      <button id="close-checkout" class="modal-close" type="button" aria-label="Cerrar">×</button>
       <h2 id="checkout-title">Finalizar compra</h2>
       <p id="checkout-message" class="modal-message">
         Confirma tu método de pago para procesar la orden.
       </p>
-
       <form id="checkout-form" class="auth-form">
         <div class="form-group">
           <label for="pay-bank">Banco</label>
           <input id="pay-bank" type="text" required>
         </div>
-
         <div class="form-group">
           <label for="pay-holder">Nombre del titular</label>
           <input id="pay-holder" type="text" required>
         </div>
-
         <div class="form-group">
           <label for="pay-card">Número de tarjeta</label>
           <input id="pay-card" type="text" inputmode="numeric" required>
         </div>
-
         <div class="form-row">
           <div class="form-group">
             <label for="pay-expiry">Vencimiento (MM/AA)</label>
-            <input
-              id="pay-expiry"
-              type="text"
-              placeholder="MM/AA"
-              maxlength="5"
-              required
-            >
+            <input id="pay-expiry" type="text" placeholder="MM/AA" maxlength="5" required>
           </div>
-
           <div class="form-group">
             <label for="pay-cvv">CVV</label>
-            <input
-              id="pay-cvv"
-              type="password"
-              inputmode="numeric"
-              maxlength="4"
-              required
-            >
+            <input id="pay-cvv" type="password" inputmode="numeric" maxlength="4" required>
           </div>
         </div>
-
         <p class="checkout-summary-line">
           Total a pagar: <strong id="checkout-total">$0.00</strong>
         </p>
-
         <p id="checkout-error" class="form-error" role="alert"></p>
-
-        <button id="checkout-submit" class="btn btn-primary btn-block" type="submit">
-          Pagar
-        </button>
+        <button id="checkout-submit" class="btn btn-primary btn-block" type="submit">Pagar</button>
       </form>
-
       <div id="checkout-receipt" class="hidden"></div>
     </div>
   </div>
@@ -340,6 +253,7 @@
   <script src="./js/data/usuarios.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/auth.js"></script>
+  <script src="./js/publicaciones.js"></script>
   <script src="./js/cart.js"></script>
   <script src="./js/checkout.js"></script>
   <script src="./js/catalog.js"></script>

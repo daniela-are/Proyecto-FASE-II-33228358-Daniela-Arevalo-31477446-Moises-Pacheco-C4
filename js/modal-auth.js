@@ -1,3 +1,5 @@
+let redirectAfterLogin = false;
+
 function getAuthModalElements() {
   return {
     modal: document.getElementById("auth-modal"),
@@ -58,12 +60,14 @@ function switchAuthTab(tab = "login") {
   }
 }
 
-function openAuthModal(tab = "login", message = "") {
+function openAuthModal(tab = "login", message = "", redirect = false) {
   const elements = getAuthModalElements();
 
   if (!elements.modal) {
     return;
   }
+
+  redirectAfterLogin = redirect;
 
   elements.modal.classList.remove("hidden");
   document.body.classList.add("modal-open");
@@ -86,6 +90,8 @@ function closeAuthModal() {
   document.body.classList.remove("modal-open");
 
   clearAuthErrors();
+
+  redirectAfterLogin = false;
 }
 
 function getRegisterFormData() {
@@ -178,6 +184,8 @@ function handleLoginSubmit(event) {
       elements.loginError.textContent = "Ingresa nickname, contraseña y rol.";
     }
 
+    
+
     return;
   }
 
@@ -201,6 +209,12 @@ function handleLoginSubmit(event) {
 
   if (elements.loginForm) {
     elements.loginForm.reset();
+  }
+
+  if (redirectAfterLogin) {
+    redirectAfterLogin = false;
+    window.location.href = "pages/perfil.html";
+    return;
   }
 
   closeAuthModal();
@@ -246,6 +260,12 @@ function handleRegisterSubmit(event) {
 
   if (elements.registerForm) {
     elements.registerForm.reset();
+  }
+
+  if (redirectAfterLogin) {
+    redirectAfterLogin = false;
+    window.location.href = "pages/perfil.html";
+    return;
   }
 
   closeAuthModal();

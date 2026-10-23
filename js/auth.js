@@ -16,7 +16,9 @@ function saveStoredUsers(users) {
 }
 
 function getAllUsers() {
-  return [...USUARIOS_PREDEFINIDOS, ...getStoredUsers()];
+  // Los usuarios guardados van primero para que las ediciones de perfil
+  // tengan prioridad sobre los usuarios predefinidos.
+  return [...getStoredUsers(), ...USUARIOS_PREDEFINIDOS];
 }
 
 function findUserByNickname(nickname) {
@@ -132,5 +134,41 @@ function registerUser(data) {
   return {
     success: true,
     session: getCurrentSession()
+  };
+}
+
+function updateUserProfile(nickname, changes) {
+  const normalized = normalizeNickname(nickname);
+  const stored = getStoredUsers();
+
+  let user = stored.find(
+    (entry) => normalizeNickname(entry.nickname) === normalized
+  );
+
+  if (user) {
+    Object.assign(user, changes);
+    saveStoredUsers(stored);
+  } else {
+    const base = USUARIOS_PREDEFINIDOS.find(
+      (entry) => normalizeNickname(entry.nickname) === normalized
+    );
+
+    if (!base) {
+      return {
+        success: false,
+        message: "Usuario no encontrado."
+      };
+    }
+
+    user = Object.assign({}, base, changes, { editado: true });
+    stored.push(user);
+    saveStoredUsers(stored);
+  }
+
+  saveSession(user);
+
+  return {
+    success: true,
+    user
   };
 }

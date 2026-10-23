@@ -18,14 +18,18 @@ function updateAuthUI() {
 
     if (openButton) {
       openButton.addEventListener("click", () => {
-        openAuthModal("login", "Inicia sesión o regístrate para comprar.");
+        openAuthModal(
+          "login",
+          "Inicia sesión o regístrate para comprar.",
+          true
+        );
       });
     }
   } else {
     authArea.innerHTML = `
-      <span class="user-greeting">
+      <a class="user-greeting" href="./pages/perfil.html">
         Hola, ${escapeHtml(session.nickname)} (${escapeHtml(session.rol)})
-      </span>
+      </a>
 
       <button id="logout-button" class="btn btn-outline" type="button">
         Salir
@@ -52,6 +56,17 @@ function handleLogout() {
   clearSession();
   updateAuthUI();
   showToast("Sesión cerrada correctamente.", "info");
+}
+
+function showPendingNotice() {
+  const notice = getFromLocalStorage("binaryshop_notice", "");
+
+  if (!notice) {
+    return;
+  }
+
+  removeFromLocalStorage("binaryshop_notice");
+  showToast(notice, "info");
 }
 
 function bindHomeEvents() {
@@ -89,6 +104,7 @@ function initHome() {
   bindCartEvents();
   bindCheckoutEvents();
   bindHomeEvents();
+  showPendingNotice();
 }
 
 if (document.readyState === "loading") {

@@ -608,3 +608,36 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ================= IMÁGENES DE PRODUCTOS ================= */
+
+.product-image {
+  padding: 0;
+  overflow: hidden;
+}
+
+.product-image span {
+  padding: 16px;
+}
+
+.product-image img {
+  width: 100%;
+  height: 190px;
+  object-fit: contain;
+  display: block;
+}
+
+.cart-item-thumb {
+  overflow: hidden;
+}
+
+.cart-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 5 categorías: distribución automática */
+.category-grid {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}

@@ -242,13 +242,17 @@ function renderCartDropdown() {
   }
 
   itemsContainer.innerHTML = items
-    .map((item) => {
+      .map((item) => {
       const stock = getProductStock(item.id);
+      const product = getProductById(item.id);
+      const thumbHtml = product && product.imagen
+        ? `<img src="${product.imagen}" alt="">`
+        : "<span>Img</span>";
 
       return `
         <div class="cart-item" data-id="${item.id}">
           <div class="cart-item-thumb">
-            <span>Img</span>
+            ${thumbHtml}
           </div>
 
           <div class="cart-item-info">

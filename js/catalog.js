@@ -59,10 +59,14 @@ function updateCatalogTitle(view, count) {
 }
 
 function createProductCard(product) {
+  const imageHtml = product.imagen
+    ? `<img src="${product.imagen}" alt="${escapeHtml(product.nombre)}">`
+    : "<span>Imagen del producto</span>";
+
   return `
     <article class="product-card">
       <div class="product-image">
-        <span>Imagen del producto</span>
+        ${imageHtml}
       </div>
 
       <div class="product-info">

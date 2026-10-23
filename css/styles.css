@@ -44,6 +44,10 @@ a {
   text-decoration: none;
 }
 
+input {
+  color: black;
+}
+
 button,
 input,
 select {

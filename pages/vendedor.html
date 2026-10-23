@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Vendedor — BinaryShop</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <header class="vendedor-header">
+    <div class="container vendedor-header-content">
+      <a class="brand" href="../index.html">BinaryShop</a>
+      <nav>
+        <a href="../index.html" class="btn btn-secondary">Volver a la tienda</a>
+        <button id="btn-cerrar-sesion" class="btn btn-outline">Cerrar sesión</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="vendedor-main">
+    <div class="container">
+      <section class="vendedor-card">
+        <div class="vendedor-avatar" id="vendedor-avatar">V</div>
+        <div>
+          <h1 id="vendedor-nombre">Vendedor</h1>
+          <span class="role-badge role-vendedor">Vendedor</span>
+          <p class="profile-nickname" id="vendedor-nickname">@vendedor</p>
+        </div>
+      </section>
+
+      <nav class="vendedor-tabs">
+        <button class="vendedor-tab activa" data-tab="publicar">Publicar producto</button>
+        <button class="vendedor-tab" data-tab="mis-productos">Mis productos</button>
+        <button class="vendedor-tab" data-tab="historial">Historial de ventas</button>
+      </nav>
+
+      <!-- Pestaña 1: Publicar / Editar -->
+      <section class="vendedor-panel activa" id="panel-publicar">
+        <form id="form-publicar" class="form-publicar">
+          <h2 id="form-publicar-titulo">Publicar producto</h2>
+          <input type="hidden" id="pub-edit-id">
+
+          <label>Nombre del producto
+            <input type="text" id="pub-nombre" required>
+          </label>
+
+          <label>Descripción
+            <textarea id="pub-descripcion" required></textarea>
+          </label>
+
+          <label>Precio ($)
+            <input type="number" id="pub-precio" min="0.01" step="0.01" required>
+          </label>
+
+          <label>Categoría
+            <select id="pub-categoria" required></select>
+            <small>O elige "Nueva categoría..." para crear una</small>
+          </label>
+
+          <label id="label-nueva-categoria" class="oculto">Nombre de la nueva categoría
+            <input type="text" id="pub-nueva-categoria">
+          </label>
+
+          <label>Stock disponible
+            <input type="number" id="pub-stock" min="1" step="1" value="1" required>
+          </label>
+
+          <label>Imagen del producto (jpg, png, webp — máx 1.5 MB)
+            <input type="file" id="pub-imagen" accept="image/jpeg,image/png,image/webp" required>
+          </label>
+
+          <div id="pub-imagen-preview" class="pub-imagen-preview oculto"></div>
+
+          <p id="pub-mensaje" class="form-mensaje"></p>
+
+          <div class="form-publicar-botones">
+            <button type="submit" id="form-publicar-boton" class="btn btn-primary">Publicar producto</button>
+            <button type="button" id="btn-cancelar-edicion" class="btn btn-secondary oculto">Cancelar edición</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Pestaña 2: Mis productos -->
+      <section class="vendedor-panel" id="panel-mis-productos">
+        <div id="mis-productos-lista" class="mis-productos-lista"></div>
+      </section>
+
+      <!-- Pestaña 3: Historial -->
+      <section class="vendedor-panel" id="panel-historial">
+        <div id="historial-resumen" class="historial-resumen"></div>
+        <div id="historial-lista" class="historial-lista"></div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="../js/data/productos.js"></script>
+  <script src="../js/data/usuarios.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/publicaciones.js"></script>
+  <script src="../js/vendedor.js"></script>
+</body>
+</html>

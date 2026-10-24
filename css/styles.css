@@ -149,7 +149,6 @@ select {
   font-weight: 800;
   letter-spacing: -0.02em;
 
-  /* Degradado: negro/azul noche -> azul -> índigo -> cyan */
   background: linear-gradient(
     90deg,
     #0B1220 0%,
@@ -160,13 +159,11 @@ select {
     #7DEFFF 100%
   );
 
-  /* El degradado solo se ve dentro de las letras */
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
 
-  /* Resplandor morado + cyan alrededor del texto */
   filter:
     drop-shadow(0 0 6px rgba(139, 92, 246, 0.35))
     drop-shadow(0 0 14px rgba(34, 211, 238, 0.22));
@@ -181,7 +178,6 @@ select {
   transform: translateY(-1px);
 }
 
-/* Respaldo por si algún navegador no soporta background-clip: text */
 @supports not (background-clip: text) {
   .brand {
     background: none;

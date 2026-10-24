@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BinaryShop | Guía de uso</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <a class="brand" href="../index.html">BinaryShop</a>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="../index.html">Volver a la tienda</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container ayuda-container">
+
+      <section class="ayuda-hero">
+        <h1>Guía de uso de BinaryShop</h1>
+        <p>
+          Aquí tiene información sobre las funciones del proyecto y lo que puede hacer. No usa base de datos real:
+          toda la información se guarda en el almacenamiento local (localStorage) del navegador.
+        </p>
+      </section>
+
+      <section class="ayuda-section">
+        <h2>1. Credenciales de demostración</h2>
+        <table class="ayuda-tabla">
+          <thead>
+            <tr>
+              <th>Cuenta</th>
+              <th>Nickname</th>
+              <th>Contraseña</th>
+              <th>Rol a seleccionar en el login</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Administrador</td><td>admin</td><td>admin123</td><td>administrador</td></tr>
+            <tr><td>Comprador</td><td>comprador</td><td>comprador123</td><td>comprador</td></tr>
+            <tr><td>Vendedor</td><td>vendedor</td><td>vendedor123</td><td>vendedor</td></tr>
+          </tbody>
+        </table>
+        <p class="ayuda-nota">
+          También puedes crear cuentas nuevas desde el botón "Ingresar" → pestaña "Registrarse".
+        </p>
+      </section>
+
+      <section class="ayuda-section">
+        <h2>2. Cambio de rol (comprador ⇄ vendedor)</h2>
+        <p>
+          Una misma cuenta puede alternar entre comprador y vendedor: cierra sesión e inicia
+          sesión con el mismo nickname y contraseña, seleccionando el otro rol. También puede
+          hacerse repitiendo el formulario de registro con el otro rol. Las cuentas de
+          administrador no pueden conmutar.
+        </p>
+      </section>
+
+      <section class="ayuda-section">
+        <h2>3. Recorrido sugerido por rol</h2>
+
+        <h3>Comprador</h3>
+        <ol>
+          <li>Explora el catálogo, filtra por categorías o pulsa "Ver todos".</li>
+          <li>Añade productos al carrito: el botón del header muestra el conteo y abre un desplegable con el detalle.</li>
+          <li>"Finalizar compra" abre la pasarela simulada con los datos bancarios precargados y editables.</li>
+          <li>Para ver un pago rechazado usa CVV <strong>000</strong>; con cualquier otro CVV válido verás el recibo de compra.</li>
+          <li>En tu perfil puedes editar tus datos y consultar el historial "Mis compras".</li>
+        </ol>
+
+        <h3>Vendedor</h3>
+        <ol>
+          <li>Entra al panel desde tu perfil ("Agregar producto").</li>
+          <li>Publica un producto con nombre, descripción, precio, stock, categoría (puedes crear una nueva) e imagen.</li>
+          <li>En "Mis productos" puedes editar o eliminar tus publicaciones.</li>
+          <li>Cuando un comprador compre uno de tus productos, "Historial de ventas" mostrará la venta y tus ingresos.</li>
+        </ol>
+
+        <h3>Administrador</h3>
+        <ol>
+          <li>Entra al panel desde tu perfil ("Ir al panel de administración").</li>
+          <li>"Resumen": métricas globales (usuarios, vendedores, publicados, órdenes y ventas).</li>
+          <li>"Usuarios": elimina cuentas registradas con filtro por rol. Las cuentas predefinidas y tu propia sesión están protegidas. Eliminar un vendedor retira también sus productos publicados.</li>
+          <li>"Productos publicados": remueve publicaciones de cualquier vendedor; también se limpian de los carritos que las contengan.</li>
+        </ol>
+      </section>
+
+      <section class="ayuda-section">
+        <h2>4. Requisitos del enunciado y dónde verlos</h2>
+        <table class="ayuda-tabla">
+          <thead>
+            <tr><th>Requisito (Fase II)</th><th>Dónde verlo</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Login/Registro simulado con credenciales predefinidas</td>
+              <td>Botón "Ingresar" del header (modal con pestañas de login y registro).</td>
+            </tr>
+            <tr>
+              <td>2. Catálogo con imagen, precio y botones de compra</td>
+              <td>Página principal (index.html).</td>
+            </tr>
+            <tr>
+              <td>3. Carrito con conteo dinámico y desplegable</td>
+              <td>Botón "Carrito (n)" del header.</td>
+            </tr>
+            <tr>
+              <td>4. Panel de vendedor (publicar nombre, precio e imagen)</td>
+              <td>pages/vendedor.html (pestañas Publicar / Mis productos / Historial).</td>
+            </tr>
+            <tr>
+              <td>5. Panel de administrador (eliminar cuentas y publicaciones)</td>
+              <td>pages/administrador.html (pestañas Resumen / Usuarios / Productos).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Funcionalidades adicionales</h3>
+        <ul>
+          <li>Pasarela de pago simulada con recibo, tarjeta enmascarada y rechazo por CVV 000.</li>
+          <li>Stock persistido que se descuenta con cada compra y limita el carrito.</li>
+          <li>Categorías dinámicas creadas por los vendedores al publicar.</li>
+          <li>Edición de datos de perfil e historial "Mis compras" del comprador.</li>
+          <li>Historial de ventas del vendedor con resumen de ingresos y unidades.</li>
+          <li>Cambio de rol comprador ⇄ vendedor con las mismas credenciales.</li>
+          <li>Métricas globales en el panel de administrador.</li>
+          <li>Esta guía de uso con restablecimiento de la demostración.</li>
+        </ul>
+      </section>
+
+      <section class="ayuda-section">
+        <h2>5. Restablecer la demostración</h2>
+        <p>
+          Devuelve el sistema a su estado inicial (cuentas de fábrica, sin productos
+          publicados, sin órdenes, carritos vacíos y stock original):
+        </p>
+        <button id="btn-reset-demo" class="btn btn-danger" type="button">
+          Restablecer datos de demostración
+        </button>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="toast-container" class="toast-container"></div>
+
+  <script>
+    document.getElementById("btn-reset-demo").addEventListener("click", function () {
+      if (confirm(
+        "¿Seguro que deseas restablecer la demostración? Se borrarán las cuentas registradas, los productos publicados, las órdenes, los carritos y los descuentos de stock."
+      )) {
+        localStorage.clear();
+        window.location.href = "../index.html";
+      }
+    });
+  </script>
+</body>
+</html>

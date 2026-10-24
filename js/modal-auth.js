@@ -1,5 +1,10 @@
 let redirectAfterLogin = false;
 
+function guardarAvisoYRedirigir(mensaje) {
+  saveToLocalStorage("binaryshop_notice", mensaje);
+  window.location.href = "pages/perfil.html";
+}
+
 function getAuthModalElements() {
   return {
     modal: document.getElementById("auth-modal"),
@@ -119,13 +124,24 @@ function handleLoginSubmit(event) {
 
   if (redirectAfterLogin) {
     redirectAfterLogin = false;
-    window.location.href = "pages/perfil.html";
+    guardarAvisoYRedirigir(
+      result.rolCambiado
+        ? `Tu rol cambió a ${rol}. Bienvenido, ${result.session.nombre}.`
+        : `Bienvenido, ${result.session.nombre}.`
+    );
     return;
   }
 
   closeAuthModal();
   if (typeof updateAuthUI === "function") updateAuthUI();
-  showToast(`Bienvenido, ${result.session.nombre}.`, "success");
+  if (result.rolCambiado) {
+    showToast(
+      `Tu rol cambió a ${rol}. Bienvenido, ${result.session.nombre}.`,
+      "success"
+    );
+  } else {
+    showToast(`Bienvenido, ${result.session.nombre}.`, "success");
+  }
 }
 
 function handleRegisterSubmit(event) {
@@ -141,30 +157,60 @@ function handleRegisterSubmit(event) {
     return;
   }
 
-  const existente = findUserByNickname(data.nickname);
+    const existente = findUserByNickname(data.nickname);
+
   if (existente) {
     const coincide = existente.password === data.password;
-    const esComprador = existente.rol === "comprador";
-    const quiereVender = data.rol === "vendedor";
+    const conmutable =
+      ROLES_CONMUTABLES.includes(existente.rol) &&
+      ROLES_CONMUTABLES.includes(data.rol);
 
-    if (coincide && esComprador && quiereVender) {
-      const resultado = updateUserProfile(existente.nickname, { rol: "vendedor" });
+    if (coincide && conmutable && existente.rol !== data.rol) {
+      const resultado = updateUserProfile(existente.nickname, { rol: data.rol });
+
       if (resultado.success) {
         const elements = getAuthModalElements();
         if (elements.registerForm) elements.registerForm.reset();
 
         if (redirectAfterLogin) {
           redirectAfterLogin = false;
-          window.location.href = "pages/perfil.html";
+          guardarAvisoYRedirigir(
+            data.rol === "vendedor"
+              ? "Opciones de venta habilitadas. Bienvenido, " + data.nickname + "."
+              : "Rol cambiado a comprador. Bienvenido, " + data.nickname + "."
+          );
           return;
         }
 
         closeAuthModal();
         if (typeof updateAuthUI === "function") updateAuthUI();
-        showToast("Opciones de venta habilitadas. Bienvenido, " + resultado.user.nickname + ".", "success");
+
+        const aviso = data.rol === "vendedor"
+          ? "Opciones de venta habilitadas. Bienvenido, " + resultado.user.nickname + "."
+          : "Rol cambiado a comprador. Bienvenido, " + resultado.user.nickname + ".";
+
+        showToast(aviso, "success");
       }
+
       return;
     }
+
+    const elements = getAuthModalElements();
+
+    if (elements.registerError) {
+      if (!coincide) {
+        elements.registerError.textContent =
+          "La contraseña no coincide con la cuenta existente para este nickname.";
+      } else if (existente.rol === data.rol) {
+        elements.registerError.textContent =
+          `Ya existe una cuenta con este nickname y rol ${existente.rol}. Inicia sesión para usarla.`;
+      } else {
+        elements.registerError.textContent =
+          "Este nickname corresponde a una cuenta de administrador y no puede registrarse con otro rol.";
+      }
+    }
+
+    return;
   }
 
   const result = registerUser(data);
@@ -177,11 +223,15 @@ function handleRegisterSubmit(event) {
   const elements = getAuthModalElements();
   if (elements.registerForm) elements.registerForm.reset();
 
-  if (redirectAfterLogin) {
+    if (redirectAfterLogin) {
     redirectAfterLogin = false;
-    window.location.href = "pages/perfil.html";
+    guardarAvisoYRedirigir("Registro exitoso. Bienvenido a BinaryShop.");
     return;
   }
+
+  closeAuthModal();
+  if (typeof updateAuthUI === "function") updateAuthUI();
+  showToast("Registro exitoso. Bienvenido a BinaryShop.", "success");
 
   closeAuthModal();
   if (typeof updateAuthUI === "function") updateAuthUI();

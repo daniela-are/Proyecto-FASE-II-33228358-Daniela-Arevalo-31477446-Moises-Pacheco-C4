@@ -1,5 +1,6 @@
 const SESSION_KEY = "binaryshop_session";
 const USERS_KEY = "binaryshop_users";
+const ROLES_CONMUTABLES = ["comprador", "vendedor"];
 
 function getStoredUsers() {
   const users = getFromLocalStorage(USERS_KEY, []);
@@ -16,8 +17,6 @@ function saveStoredUsers(users) {
 }
 
 function getAllUsers() {
-  // Los usuarios guardados van primero para que las ediciones de perfil
-  // tengan prioridad sobre los usuarios predefinidos.
   return [...getStoredUsers(), ...USUARIOS_PREDEFINIDOS];
 }
 
@@ -66,7 +65,7 @@ function loginUser(credentials) {
     };
   }
 
-  const user = findUserByNickname(nickname);
+  let user = findUserByNickname(nickname);
 
   if (!user || user.password !== password) {
     return {
@@ -75,18 +74,38 @@ function loginUser(credentials) {
     };
   }
 
+  let rolCambiado = false;
+
   if (user.rol !== rol) {
-    return {
-      success: false,
-      message: "El rol seleccionado no coincide con este usuario."
-    };
+    const conmutable =
+      ROLES_CONMUTABLES.includes(user.rol) && ROLES_CONMUTABLES.includes(rol);
+
+    if (!conmutable) {
+      return {
+        success: false,
+        message: "El rol seleccionado no coincide con este usuario."
+      };
+    }
+
+    const resultado = updateUserProfile(user.nickname, { rol: rol });
+
+    if (!resultado.success) {
+      return {
+        success: false,
+        message: "No se pudo cambiar el rol de la cuenta."
+      };
+    }
+
+    user = resultado.user;
+    rolCambiado = true;
   }
 
   saveSession(user);
 
   return {
     success: true,
-    session: getCurrentSession()
+    session: getCurrentSession(),
+    rolCambiado: rolCambiado
   };
 }
 

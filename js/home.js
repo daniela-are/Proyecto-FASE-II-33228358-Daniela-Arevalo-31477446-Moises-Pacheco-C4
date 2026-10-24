@@ -15,12 +15,26 @@ function updateAuthUI() {
       });
     }
   } else {
+    const iniciales =
+      (session.nombre.charAt(0) + session.apellido.charAt(0)).toUpperCase();
+
     authArea.innerHTML = `
-      <a class="user-greeting" href="./pages/perfil.html">
-        Hola, ${escapeHtml(session.nickname)} (${escapeHtml(session.rol)})
+      <a
+        class="user-greeting"
+        href="./pages/perfil.html"
+        title="Ir a mi perfil"
+      >
+        <span class="header-avatar">${escapeHtml(iniciales)}</span>
+        <span class="user-greeting-text">
+          Hola, ${escapeHtml(session.nickname)} (${escapeHtml(session.rol)})
+        </span>
       </a>
-      <button id="logout-button" class="btn btn-outline" type="button">Salir</button>
+
+      <button id="logout-button" class="btn btn-outline" type="button">
+        Salir
+      </button>
     `;
+
     const logoutButton = document.getElementById("logout-button");
     if (logoutButton) {
       logoutButton.addEventListener("click", handleLogout);
@@ -62,6 +76,17 @@ function bindHomeEvents() {
   }
 }
 
+function bindAvisoAyuda() {
+  const aviso = document.getElementById("aviso-ayuda");
+  const cerrar = document.getElementById("aviso-ayuda-cerrar");
+
+  if (cerrar && aviso) {
+    cerrar.addEventListener("click", () => {
+      aviso.classList.add("hidden");
+    });
+  }
+}
+
 function initHome() {
   cargarPublicadosEnCatalogo();
   renderCatalog("destacados");
@@ -70,6 +95,7 @@ function initHome() {
   bindCartEvents();
   bindCheckoutEvents();
   bindHomeEvents();
+  bindAvisoAyuda();
   showPendingNotice();
 }
 

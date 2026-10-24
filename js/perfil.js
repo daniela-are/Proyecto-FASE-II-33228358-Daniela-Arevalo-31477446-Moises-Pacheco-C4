@@ -238,6 +238,12 @@ function initPerfil() {
   }
   renderProfile();
 
+  const avisoPendiente = getFromLocalStorage("binaryshop_notice", "");
+  if (avisoPendiente) {
+    removeFromLocalStorage("binaryshop_notice");
+    showToast(avisoPendiente, "success");
+  }
+
   const logoutButton = document.getElementById("logout-button");
   if (logoutButton) {
     logoutButton.addEventListener("click", () => {

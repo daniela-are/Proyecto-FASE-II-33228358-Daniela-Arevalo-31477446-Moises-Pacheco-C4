@@ -21,7 +21,6 @@
     window.location.href = "../index.html";
   });
 
-  /* ---------- Pestañas ---------- */
   const tabs = document.querySelectorAll(".vendedor-tab");
 
   function activarTab(nombre) {
@@ -34,7 +33,6 @@
 
   tabs.forEach((tab) => tab.addEventListener("click", () => activarTab(tab.dataset.tab)));
 
-  /* ---------- Categorías del select ---------- */
   const selectCategoria = document.getElementById("pub-categoria");
   const labelNuevaCategoria = document.getElementById("label-nueva-categoria");
   const inputNuevaCategoria = document.getElementById("pub-nueva-categoria");
@@ -61,7 +59,6 @@
     if (!esNueva) inputNuevaCategoria.value = "";
   });
 
-  /* ---------- Imagen (preview + validación) ---------- */
   const inputImagen = document.getElementById("pub-imagen");
   const preview = document.getElementById("pub-imagen-preview");
   const mensaje = document.getElementById("pub-mensaje");
@@ -90,7 +87,6 @@
     reader.readAsDataURL(archivo);
   });
 
-  /* ---------- Reset del formulario ---------- */
   function resetForm() {
     document.getElementById("form-publicar").reset();
     document.getElementById("pub-edit-id").value = "";
@@ -109,7 +105,6 @@
 
   document.getElementById("btn-cancelar-edicion").addEventListener("click", resetForm);
 
-  /* ---------- Publicar / Guardar cambios ---------- */
   document.getElementById("form-publicar").addEventListener("submit", (evento) => {
     evento.preventDefault();
     mensaje.textContent = "";
@@ -162,7 +157,6 @@
     llenarCategorias();
   });
 
-  /* ---------- Mis productos ---------- */
   function renderMisProductos() {
     const contenedor = document.getElementById("mis-productos-lista");
     const productos = getPublicadosDeVendedor(session.nickname);
@@ -229,7 +223,6 @@
     }
   });
 
-  /* ---------- Historial de ventas ---------- */
   function renderHistorial() {
     const resumen = document.getElementById("historial-resumen");
     const lista = document.getElementById("historial-lista");
@@ -306,9 +299,6 @@
     });
   }
 
-  /* ---------- Detección de hash para abrir pestaña directa ---------- */
-
-    /* ---------- Cambio de hash al cambiar de pestaña ---------- */
   window.addEventListener("hashchange", () => {
     const nuevoHash = window.location.hash.replace("#", "");
     if (tabsValidas.includes(nuevoHash)) {

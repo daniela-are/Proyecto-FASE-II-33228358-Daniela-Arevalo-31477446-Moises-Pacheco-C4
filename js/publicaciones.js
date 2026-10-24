@@ -2,8 +2,6 @@ const CLAVE_PRODUCTOS_PUBLICADOS = "binaryshop_products";
 const CLAVE_ORDENES = "binaryshop_orders";
 const VENDEDOR_TIENDA = "BinaryShop";
 
-/* ---------- Productos publicados ---------- */
-
 function getPublicados() {
   try {
     const raw = localStorage.getItem(CLAVE_PRODUCTOS_PUBLICADOS);
@@ -57,7 +55,6 @@ function eliminarProductoPublicado(id) {
   guardarPublicados(getPublicados().filter((p) => p.id !== id));
 }
 
-/* ---------- Combinar con el catálogo oficial ---------- */
 
 function cargarPublicadosEnCatalogo() {
   getPublicados().forEach((producto) => {
@@ -66,7 +63,6 @@ function cargarPublicadosEnCatalogo() {
   });
 }
 
-/* ---------- Categorías activas (oficiales + dinámicas) ---------- */
 
 function getCategoriasActivas() {
   const categorias = CATEGORIAS.map((c) => ({ id: c.id, nombre: c.nombre }));
@@ -81,7 +77,6 @@ function getCategoriasActivas() {
   return categorias;
 }
 
-/* ---------- Órdenes ---------- */
 
 function getOrdenes() {
   try {

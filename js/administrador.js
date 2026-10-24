@@ -23,7 +23,6 @@
 
   const CLAVE_CARRITO_PREFIJO = "binaryshop_cart_";
 
-  /* ---------- Pestañas ---------- */
   const tabs = document.querySelectorAll(".vendedor-tab");
 
   function activarTab(nombre) {
@@ -37,7 +36,6 @@
 
   tabs.forEach((tab) => tab.addEventListener("click", () => activarTab(tab.dataset.tab)));
 
-  /* ---------- Helpers ---------- */
   function esPredefinido(user) {
     return user.predefinido === true ||
       USUARIOS_PREDEFINIDOS.some((u) => u.nickname === user.nickname);
@@ -54,12 +52,10 @@
             localStorage.setItem(clave, JSON.stringify(filtrados));
           }
         } catch (error) {
-          /* clave dañada: se ignora */
         }
       });
   }
 
-  /* ---------- Pestaña Resumen ---------- */
   function renderResumen() {
     const contenedor = document.getElementById("admin-metricas");
     const usuarios = getAllUsers();
@@ -84,7 +80,6 @@
     `;
   }
 
-  /* ---------- Pestaña Usuarios ---------- */
   function renderUsuarios() {
     const contenedor = document.getElementById("admin-usuarios-lista");
     const filtro = document.getElementById("admin-filtro-rol").value;
@@ -128,7 +123,6 @@
 
   document.getElementById("admin-filtro-rol").addEventListener("change", renderUsuarios);
 
-  /* ---------- Pestaña Productos publicados ---------- */
   function renderProductos() {
     const contenedor = document.getElementById("admin-productos-lista");
     const productos = getPublicados();
@@ -162,7 +156,6 @@
     });
   }
 
-  /* ---------- Eliminación de cuentas ---------- */
   function eliminarUsuario(nickname) {
     const user = findUserByNickname(nickname);
     if (!user) return;
@@ -197,7 +190,6 @@
     renderProductos();
   }
 
-  /* ---------- Remoción de publicaciones ---------- */
   function eliminarProducto(id) {
     const producto = getPublicadoPorId(id);
     if (!producto) return;
@@ -219,7 +211,6 @@
     renderProductos();
   }
 
-  /* ---------- Listeners de acciones ---------- */
   document.getElementById("admin-usuarios-lista").addEventListener("click", (event) => {
     const boton = event.target.closest("button[data-accion='eliminar-usuario']");
     if (!boton) return;
@@ -232,6 +223,5 @@
     eliminarProducto(boton.dataset.id);
   });
 
-  /* ---------- Init ---------- */
   renderResumen();
 })();
